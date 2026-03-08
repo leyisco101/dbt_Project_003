@@ -1,0 +1,52 @@
+version: 2
+
+models:
+  - name: fct_trips
+    description: "Fact table containing trip-level business events."
+    columns:
+      - name: trip_id
+        tests: [not_null, unique]
+      - name: rider_id
+        tests:
+          - relationships:
+              to: ref('dim_riders')
+              field: rider_id
+      - name: driver_id
+        tests:
+          - relationships:
+              to: ref('dim_drivers')
+              field: driver_id
+      - name: city_id
+        tests:
+          - relationships:
+              to: ref('dim_cities')
+              field: city_id
+      - name: net_revenue
+        tests:
+          - not_null:
+              config:
+                severity: warn
+
+  - name: dim_drivers
+    description: "Driver dimension table."
+    columns:
+      - name: driver_id
+        tests: [not_null, unique]
+
+  - name: dim_riders
+    description: "Rider dimension table."
+    columns:
+      - name: rider_id
+        tests: [not_null, unique]
+
+  - name: dim_cities
+    description: "City dimension table."
+    columns:
+      - name: city_id
+        tests: [not_null, unique]
+
+  - name: dim_date
+    description: "Calendar date dimension."
+    columns:
+      - name: date_id
+        tests: [not_null, unique]

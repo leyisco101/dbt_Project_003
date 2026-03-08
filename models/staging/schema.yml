@@ -1,0 +1,59 @@
+version: 2
+
+sources:
+  - name: my_dbt_dataset 
+    description: "Raw tables from BigQuery"
+    tables:
+      - name: trips_raw
+        description: "Raw trips table containing all ride transactions"
+        columns:
+          - name: trip_id
+            description: "Primary key for trips"
+            tests:
+              - not_null
+              - unique
+
+      - name: drivers_raw
+        description: "Raw drivers table"
+        columns:
+          - name: driver_id
+            description: "Primary key for drivers"
+            tests:
+              - not_null
+              - unique
+
+      - name: riders_raw
+        description: "Raw riders table"
+        columns:
+          - name: rider_id
+            description: "Primary key for riders"
+            tests:
+              - not_null
+              - unique
+
+      - name: payments_raw
+        description: "Raw payments table"
+        columns:
+          - name: payment_id
+            description: "Primary key for payments"
+            tests:
+              - not_null
+              - unique
+
+      - name: cities_raw
+        description: "Raw cities metadata table"
+        columns:
+          - name: city_id
+            description: "Primary key for cities"
+            tests:
+              - not_null
+              - unique
+
+      - name: driver_status_events_raw
+        description: "High-volume driver online/offline events"
+        columns:
+          - name: event_id
+            description: "Primary key for driver events"
+            tests:
+              - not_null
+              - unique

@@ -1,0 +1,85 @@
+version: 2
+
+models:
+
+  - name: int_trips_enriched
+    description: Enriched trips with calculated metrics and revenue fields
+
+    columns:
+      - name: trip_id
+        tests:
+          - not_null
+          - unique
+
+      - name: rider_id
+        tests:
+          - not_null
+
+      - name: driver_id
+        tests:
+          - not_null
+
+      - name: trip_duration_minutes
+        description: Duration of trip in minutes
+
+      - name: corporate_trip_flag
+        description: Indicates if trip was booked via corporate account
+
+      - name: net_revenue
+        description: Platform revenue from the trip
+
+
+  - name: int_driver_metrics
+    description: Driver-level aggregated metrics
+
+    columns:
+      - name: driver_id
+        tests:
+          - not_null
+          - unique
+
+      - name: driver_lifetime_trips
+        description: Total trips completed by the driver
+
+
+  - name: int_rider_metrics
+    description: Rider-level aggregated metrics
+
+    columns:
+      - name: rider_id
+        tests:
+          - not_null
+          - unique
+
+      - name: rider_lifetime_value
+        description: Total revenue generated from rider
+
+
+  - name: int_payments_enriched
+    description: Trip payments enriched with validation checks
+
+    columns:
+      - name: payment_id
+        tests:
+          - not_null
+          - unique
+
+      - name: trip_id
+        tests:
+          - not_null
+
+      - name: duplicate_trip_payment_flag
+
+      - name: failed_payment_completed_trip_flag
+
+
+  - name: int_fraud_checks
+    description: Fraud signals derived from trip and payment anomalies
+
+    columns:
+      - name: trip_id
+        tests:
+          - not_null
+          - unique
+
+      - name: extreme_surge_flag

@@ -1,0 +1,13 @@
+version: 2
+
+sources:
+  - name: my_dbt_project
+    database: my-dbt-project-488807
+    schema: my_dbt_dataset
+    tables:
+      - name: trips_raw
+      - name: drivers_raw
+      - name: riders_raw
+      - name: payments_raw
+      - name: cities_raw
+      - name: driver_status_events_raw
