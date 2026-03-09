@@ -7,9 +7,9 @@ with trips as (
         driver_id,
         city_id,
         requested_at,
-        start_time,                     -- was: pickup_at
+        start_time,
         dropoff_at,
-        trip_status,                    -- was: status
+        trip_status,
         actual_fare,
         surge_multiplier,
         trip_duration_minutes,
@@ -28,6 +28,7 @@ payments as (
         payment_count,
         failed_payment_completed_trip_flag
     from {{ ref('int_payments_enriched') }}
+    qualify row_number() over (partition by trip_id order by created_at desc) = 1  -- deduplicate to one payment per trip
 )
 
 select
